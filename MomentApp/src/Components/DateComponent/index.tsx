@@ -3,10 +3,11 @@ import Styled from 'styled-components/native';
 
 import moment from 'moment';
 
-const Container = Styled.View``;
+const Container = Styled.View`
+`;
 
 const DateText = Styled.Text`
-  font-size: 20px;
+  font-size: 25px;
   font-weight: bold;
 `;
 

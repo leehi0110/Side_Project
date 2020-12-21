@@ -17,7 +17,7 @@ const TitleText = Styled.Text`
 const TitleComponent = () => {
   return (
     <Container>
-      <TitleText>{'순간'}</TitleText>
+      <TitleText>{'At Moments'}</TitleText>
     </Container>
   );
 };
