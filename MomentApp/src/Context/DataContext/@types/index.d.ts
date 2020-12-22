@@ -1,12 +1,21 @@
-interface TodoContext {
+interface ItemContext {
+  index: string;
   title: string;
-  itemColor: string;
+  color: string;
   APM: string;
   hour: string;
   min: string;
 }
 
-interface DayContext {
+interface ItemsContext {
   day: string;
-  todoList: Array<TodoContext>;
+  items: Array<ItemContext>;
+}
+
+interface ListContext {
+  index: number;
+  todoList: Array<ItemsContext>;
+  todayList: Array<ItemContext>;
+  upIndex: () => void;
+  addTodo: (input: ItemContext, selectDay: Array<Number>) => void;
 }
