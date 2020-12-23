@@ -4,7 +4,7 @@ import { FlatList } from 'react-native';
 import moment from 'moment';
 
 import {TodoListContext} from '~/Context/DataContext';
-import TodoItemFlatComponent from '~/Components/TodoItemFlatComponent/TodoItemFlatComponent';
+import TodoItemFlatComponent from '~/Components/ShowListCompoonent/TodoItemFlatComponent/TodoItemFlatComponent';
 
 
 const Container = Styled.View`
@@ -13,16 +13,15 @@ const Container = Styled.View`
 `;
 
 const ShowListComponent = () => {
-  const {todoList} = useContext<ListContext>(TodoListContext);
+  const {todoList,dayIndex} = useContext<ListContext>(TodoListContext);
 
   useEffect(() => {
-    console.log('refresh');
-  },[todoList[moment().day()].items]);
+  },[todoList[dayIndex].items]);
 
   return (
     <Container>
       <FlatList
-        data={todoList[moment().day()].items}
+        data={todoList[dayIndex].items}
         renderItem={TodoItemFlatComponent}
         keyExtractor={item => item.index}/>
     </Container>

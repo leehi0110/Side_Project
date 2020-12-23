@@ -12,7 +12,7 @@ const Container = Styled.View`
   box-shadow: 3px 10px 3px gray;
 `;
 
-const TodoButton = Styled.TouchableHighlight`
+const TodoButton = Styled.TouchableOpacity`
   width: 100%;
   height: 100%;
   border-radius: 20px;
@@ -41,8 +41,7 @@ const TodoItemFlatComponent = ({item}: Props) => {
 
   return (
     <Container style={{backgroundColor: item.color}}>
-      <TodoButton onPress={() => {
-        
+      <TodoButton onPress={()=> {
       }}>
         <TodoTitle>{item.title}</TodoTitle>
       </TodoButton>

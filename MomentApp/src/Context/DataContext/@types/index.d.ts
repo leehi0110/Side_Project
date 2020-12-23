@@ -14,8 +14,10 @@ interface ItemsContext {
 
 interface ListContext {
   index: number;
+  dayIndex: number;
   todoList: Array<ItemsContext>;
   todayList: Array<ItemContext>;
   upIndex: () => void;
   addTodo: (input: ItemContext, selectDay: Array<Number>) => void;
+  selectDayIndex: (input: number) => void;
 }

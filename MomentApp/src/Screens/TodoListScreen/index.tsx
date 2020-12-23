@@ -1,8 +1,8 @@
 import React from 'react';
 import Styled from 'styled-components/native';
 
-import HeaderComponent from '~/Components/HeaderComponent/';
-import SelectDayFlatComponent from '~/Components/SelectDayFlatComponent';
+import HeaderComponent from '~/Components/HeaderComponent'
+import SelectDayComponent from '~/Components/SelectDayComponent';
 import ShowListComponent from '~/Components/ShowListCompoonent';
 
 const Container = Styled.SafeAreaView`
@@ -20,7 +20,7 @@ const TodoListScreen = () => {
   return (
     <Container>
       <HeaderComponent/>
-      <SelectDayFlatComponent/>
+      <SelectDayComponent/>
       <ShowListComponent/>
     </Container>
   );

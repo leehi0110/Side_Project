@@ -10,16 +10,19 @@ interface Props {
 const defaultItems = func.setDefaultItems();
 const TodoListContext = createContext<ListContext>({
   index: 0,
+  dayIndex: 0,
   todoList: defaultItems,
   todayList: [],
   upIndex: () => {},
   addTodo: (input: ItemContext, selectDay: Array<Number>): void => {},
+  selectDayIndex: (input: number): void => {},
 });
 
 const TodoListContextProvider = ({children}: Props) => {
   const [index, setIndex] = useState<number>(0);
   const [todoList, setTodoList] = useState<Array<ItemsContext>>(defaultItems);
   const [todayList,setTodayList] = useState<Array<ItemContext>>([]);
+  const [dayIndex, setDayIndex] = useState<number>(moment().day());
   
   const initData = async () => {
     try {
@@ -72,6 +75,10 @@ const TodoListContextProvider = ({children}: Props) => {
     AsyncStorage.setItem('todoList',JSON.stringify(originalList));
   }
 
+  const selectDayIndex = (input: number) => {
+    setDayIndex(input);
+  }
+
   useEffect(() => {
     initData();
     initIndex();
@@ -81,10 +88,12 @@ const TodoListContextProvider = ({children}: Props) => {
     <TodoListContext.Provider
       value={{
         index,
+        dayIndex,
         todoList,
         todayList,
         upIndex,
         addTodo,
+        selectDayIndex,
       }}>
       {children}
     </TodoListContext.Provider>

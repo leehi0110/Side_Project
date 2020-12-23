@@ -1,9 +1,9 @@
 import React from 'react';
 import Styled from 'styled-components/native';
 
-import TitleComponent from '~/Components/TitleComponent';
-import DateComponent from '~/Components/DateComponent';
-import TimeComponent from '~/Components/TimeComponent';
+import TitleComponent from '~/Components/HeaderComponent/TitleComponent';
+import DateComponent from '~/Components/HeaderComponent/DateComponent';
+import TimeComponent from '~/Components/HeaderComponent/TimeComponent';
 
 const Container = Styled.View`
   flex: 2;
