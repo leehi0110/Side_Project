@@ -2,12 +2,17 @@ import React, {useContext} from 'react';
 import Styled from 'styled-components/native';
 import { TodoListContext } from '~/Context/DataContext';
 
+import ColorPickerComponent from './ColorPickerComponent/index';
+import DayPickerComponent from './DayPickerComponent/index';
+import TimePickerComponent from './TimePickerComponent/index';
+
 const Container = Styled.View`
-  height: 200px;
+  height: 300px;
   width: 80%;
   
+  align-items: center;
   
-  border-color: gray;
+  border-color: #a38e8e;
   border-top-width: 1px;
   border-width: 3px;
   border-radius: 20px;
@@ -17,18 +22,17 @@ const Container = Styled.View`
 `;
 
 const AddButton = Styled.TouchableOpacity`
-  width: 80%;
-  height: 40px;
+  
+  width: 70%;
+  flex: 1;
 
   justify-content: center;
   align-items: center;
-
-  background-color: gray;
 `;
 
 const TestText = Styled.Text`
-  color: white;
-  font-size: 15px;
+  color: #510FFF;
+  font-size: 20px;
   font-weight: bold;
 `;
 
@@ -37,21 +41,11 @@ const SelectInfoComponent = () => {
 
   return (
     <Container>
-      <AddButton onPress={() => {addTodo
-        (
-          {
-            index: index.toString(),
-            title: '테스트 3',
-            color: '#fdff',
-            APM: 'AM',
-            hour: '2',
-            min: '30',
-          },
-          [3],
-       ),
-       upIndex()
-      }}>
-        <TestText>{'전송하기'}</TestText>
+      <ColorPickerComponent/>
+      <DayPickerComponent/>
+      <TimePickerComponent/>
+      <AddButton>
+        <TestText>{'추가하기'}</TestText>
       </AddButton>
     </Container>
   );

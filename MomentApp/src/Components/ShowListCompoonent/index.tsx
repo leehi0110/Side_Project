@@ -4,7 +4,7 @@ import { FlatList } from 'react-native';
 import moment from 'moment';
 
 import {TodoListContext} from '~/Context/DataContext';
-import TodoItemFlatComponent from '~/Components/ShowListCompoonent/TodoItemFlatComponent/TodoItemFlatComponent';
+import TodoItemFlatComponent from '~/Components/ShowListCompoonent/TodoItemFlatComponent';
 
 
 const Container = Styled.View`
@@ -15,8 +15,8 @@ const Container = Styled.View`
 const ShowListComponent = () => {
   const {todoList,dayIndex} = useContext<ListContext>(TodoListContext);
 
-  useEffect(() => {
-  },[todoList[dayIndex].items]);
+  // useEffect(() => {
+  // },[todoList[dayIndex].items]);
 
   return (
     <Container>
