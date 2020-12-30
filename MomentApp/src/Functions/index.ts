@@ -41,5 +41,41 @@ export function getTime(): string {
   return nowTime;
 } // 시간을 가져오기 위한 함수
 
+export function setDefaultItemList(): ITodoItemContext[] {
+  return []
+} // 빈 아이템 리스트를 반환하는 함수
 
+export function setDefaultItem(): ITodoItemContext {
+  return {
+    index: '',        
+    day: [false,false,false,false,false,false,false],  
+    title: '',
+    undoColor: 'white',
+    doneColor: '',
+    timePart: '',
+    hour: '00',
+    min: '00',
+  };
+} // 빈 아이템을 반환하는 함수 
 
+export function providerGetDayItem(targetDay: number, list: Array<ITodoItemContext>): Array<ITodoItemContext> {
+  let returnList: Array<ITodoItemContext> = [];
+
+  for(var value of list) {
+    if(value.day[targetDay]) returnList.push(value);
+  }
+
+  return returnList;
+} // 해당 요일의 할 일 목록을 반환하는 함수
+
+export function provideGetItem(targetIndex: string, list: Array<ITodoItemContext>): ITodoItemContext {
+  let returnItem: ITodoItemContext;
+
+  for(var value of list) {
+    if(value.index === targetIndex) {
+      returnItem = value;
+      return returnItem;
+    }
+  }
+  console.log("GetItem fail => Any item don't have targetIndex");
+} // index를 이용해 원하는 할 일을 찾는 함수
