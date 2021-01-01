@@ -13,9 +13,12 @@ interface ITodoListContext {
   itemIndex: number,                  // Todo Item의 key값을 위한 고유 index
   items: Array<ITodoItemContext>,     // item들의 정보를 가지고 있는 배열
 
+  selectedDay: number,                  // 선택 되어있는 날짜 정보
+  selectDay: (input: number) => void,           // 날짜를 선택하는 정보
+
   getItemIndex: () => number,                                     // 현재 인덱스를 가져오는 함수
   getDayItems: (targetDay: number) => Array<ITodoItemContext>,  // 특정 요일 할 일을 가져오는 함수
-  getItem: (targetIndex: string) => ITodoItemContext,           // 특정 할 일을 가져오는 함수
+  getItem: (targetIndex: string) => ITodoItemContext | undefined,           // 특정 할 일을 가져오는 함수
 
   addItem: (input: ITodoItemContext) => void,                   // 할 일을 추가하는 함수
   updateItem: (targetIndex: string, targetItem: ITodoItemContext) => void,                    // 할 일의 내용을 변경하는 함수

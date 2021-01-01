@@ -68,8 +68,8 @@ export function providerGetDayItem(targetDay: number, list: Array<ITodoItemConte
   return returnList;
 } // 해당 요일의 할 일 목록을 반환하는 함수
 
-export function provideGetItem(targetIndex: string, list: Array<ITodoItemContext>): ITodoItemContext {
-  let returnItem: ITodoItemContext;
+export function provideGetItem(targetIndex: string, list: Array<ITodoItemContext>): ITodoItemContext | undefined {
+  let returnItem: ITodoItemContext = setDefaultItem();
 
   for(var value of list) {
     if(value.index === targetIndex) {
@@ -77,5 +77,43 @@ export function provideGetItem(targetIndex: string, list: Array<ITodoItemContext
       return returnItem;
     }
   }
+
   console.log("GetItem fail => Any item don't have targetIndex");
+  return undefined;
 } // index를 이용해 원하는 할 일을 찾는 함수
+
+export function provideSortByTime(list: Array<ITodoItemContext>, input: ITodoItemContext): Array<ITodoItemContext> {
+  let sortedList: Array<ITodoItemContext> = list;
+
+  for(let i=0;i<sortedList.length;i++) {
+    var timePart = sortedList[i].timePart; // AM || PM
+    var timeHour = parseInt(sortedList[i].hour);     // Hour
+    var timeMin = parseInt(sortedList[i].min);       // Min
+
+    if(timePart > input.timePart) { // PM > AM
+      sortedList.splice(i,0,input);
+      break;
+    }
+    else if(timePart < input.timePart) continue; // AM < PM
+    else { // AM == AM || PM == PM
+      if(timeHour < parseInt(input.hour)) continue;
+      else if(timeHour > parseInt(input.hour)) {
+        sortedList.splice(i,0,input);
+        break;
+      }
+      else {
+        if(timeMin < parseInt(input.min)) continue;
+        else if(timeMin == parseInt(input.min)) {
+          sortedList.splice(i+1,0,input);
+          break;
+        }
+        else {
+          sortedList.splice(i,0,input);
+          break;
+        } // Min Compare
+      } // Hour Compare 
+    } // AM or PM Compare
+  }
+
+  return sortedList;
+} // 할 일을 시간순으로 정렬해서 할 일 리스트에 넣는 함수

@@ -3,6 +3,8 @@ import Styled from 'styled-components/native';
 import { StatusBar } from 'react-native';
 
 import Navigator from '~/Screens/Navigator';
+import {TodoListContextProvider } from '~/Context/Data';
+
 
 const Container = Styled.View`
   flex: 1;
@@ -10,10 +12,12 @@ const Container = Styled.View`
 
 const App = () => {
   return (
-    <Container>
-      <StatusBar barStyle="light-content"/>
-      <Navigator/>
-    </Container>
+    <TodoListContextProvider>
+      <Container>
+        <StatusBar barStyle="light-content"/>
+        <Navigator/>
+      </Container>
+    </TodoListContextProvider>
   );
 };
 

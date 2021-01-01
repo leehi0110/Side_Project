@@ -1,6 +1,7 @@
 import React, {createContext, useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import * as func from '~/Functions';
+import moment from 'moment';
 
 interface Props {
   children: JSX.Element | Array<JSX.Element>;
@@ -10,9 +11,12 @@ const TodoListContext = createContext<ITodoListContext>({
   itemIndex: 0,
   items: [],
 
+  selectedDay: 0,
+  selectDay: (input: number): void => {},
+
   getItemIndex: (): number => {return 0},
   getDayItems: (targetDay: number): ITodoItemContext[]=> {return []},
-  getItem: (targetIndex: string): ITodoItemContext => {return func.setDefaultItem()},
+  getItem: (targetIndex: string): ITodoItemContext | undefined => {return func.setDefaultItem()},
 
   addItem: (input: ITodoItemContext): void => {},
   updateItem: (targetIndex: string, targetItem: ITodoItemContext): void => {},
@@ -25,6 +29,7 @@ const TodoListContext = createContext<ITodoListContext>({
 const TodoListContextProvider = ({children}: Props) => {
   const [itemIndex, setItemIndex] = useState<number>(0);
   const [items, setItems] = useState<Array<ITodoItemContext>>([]);
+  const [selectedDay, setSelectedDay] = useState<number>(moment().day());
 
   const initList = async () => {
     try {
@@ -56,6 +61,12 @@ const TodoListContextProvider = ({children}: Props) => {
     }
   }; // 사용한 인덱스를 불러오는 함수
 
+  const selectDay = (input: number) => {
+    setSelectedDay(input);
+
+    console.log('selectDay change success');
+  }
+
   const getItemIndex = (): number => {
     return itemIndex;
   } // 현재 사용 가능한 index를 불러오는 함수
@@ -71,7 +82,10 @@ const TodoListContextProvider = ({children}: Props) => {
 
   } // 해당 요일의 할 일 목록을 가져오는 함수
 
-  const getItem = (targetIndex: string): ITodoItemContext => {  
+  const getItem = (targetIndex: string): ITodoItemContext | undefined => {  
+
+    console.log(items);
+
     const item = func.provideGetItem(targetIndex, items);
 
     console.log('Get item success')
@@ -92,7 +106,9 @@ const TodoListContextProvider = ({children}: Props) => {
     console.log('Index add');
     console.log('Chage input => ' + input);
 
-    const list = [...items,input];
+    const list = func.provideSortByTime(items,input);
+    // 새로운 아이템을 리스트에 넣기 전 시간순으로 정렬해 넣는다
+
     setItems(list);
     // items에 새로운 item을 넣은 뒤 변경
 
@@ -102,9 +118,9 @@ const TodoListContextProvider = ({children}: Props) => {
   } // 새로운 할 일을 할 일 리스트에 넣는 함수
 
   const updateItem = (targetIndex: string, targetItem: ITodoItemContext) => {
-    var list = items;
+    let list = items;
 
-    for(var item of list) {
+    for(let item of list) {
       if(item.index === targetIndex) {
         item = targetItem;
         break;
@@ -118,7 +134,20 @@ const TodoListContextProvider = ({children}: Props) => {
   } // item 정보를 변경하고 리스트에 반영하는 함수
 
   const deleteItem = (targetIndex: string) => {
-  }
+    let list = items;
+
+    for(let i=0;i<list.length;i++) {
+      if(list[i].index === targetIndex) {
+        list.splice(i,1); // targetIndex 아이템 삭제
+        break;
+      }
+    }
+
+    setItems(list);
+    AsyncStorage.setItem('todoList',JSON.stringify(list));
+
+    console.log('Item delete success');
+  } // 특정 할 일을 리슽에서 삭제하는 함수
 
   const undoItem = () => {
   }
@@ -129,13 +158,15 @@ const TodoListContextProvider = ({children}: Props) => {
   useEffect(() => {
     initList(); // 할일 목록을 AsyncStorage에서 가져오는 함수
     initIndex(); // 사용한 인덱스 번호를 AsyncStorage에서 가져오는 함수
-  });
+  },[]);
 
   return (
     <TodoListContext.Provider
       value={{
         itemIndex,
         items,
+        selectedDay,
+        selectDay,
         getItemIndex,
         getDayItems,
         getItem,

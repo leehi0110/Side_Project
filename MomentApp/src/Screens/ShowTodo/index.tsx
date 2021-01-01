@@ -3,15 +3,12 @@ import Styled from 'styled-components/native';
 
 import Title from '~/Components/Title';
 import NowInfo from '~/Components/NowInfo';
+import ShowAll from '~/Components/ShowAll';
+
 
 const Container = Styled.SafeAreaView`
   flex: 1;
   background-color: white;
-`;
-
-const ContentContainer = Styled.View`
-  flex: 8;
-  background-color: yellow;
 `;
 
 const ShowTodo = () => {
@@ -19,7 +16,7 @@ const ShowTodo = () => {
     <Container>
       <Title/>
       <NowInfo/>
-      <ContentContainer/>
+      <ShowAll/>
     </Container>
   );
 };
