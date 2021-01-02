@@ -50,11 +50,11 @@ export function setDefaultItem(): ITodoItemContext {
     index: '',        
     day: [false,false,false,false,false,false,false],  
     title: '',
-    undoColor: 'white',
+    undoColor: '',
     doneColor: '',
     timePart: '',
-    hour: '00',
-    min: '00',
+    hour: '',
+    min: '',
   };
 } // 빈 아이템을 반환하는 함수 
 
@@ -68,7 +68,7 @@ export function providerGetDayItem(targetDay: number, list: Array<ITodoItemConte
   return returnList;
 } // 해당 요일의 할 일 목록을 반환하는 함수
 
-export function provideGetItem(targetIndex: string, list: Array<ITodoItemContext>): ITodoItemContext | undefined {
+export function providerGetItem(targetIndex: string, list: Array<ITodoItemContext>): ITodoItemContext | undefined {
   let returnItem: ITodoItemContext = setDefaultItem();
 
   for(var value of list) {
@@ -83,7 +83,13 @@ export function provideGetItem(targetIndex: string, list: Array<ITodoItemContext
 } // index를 이용해 원하는 할 일을 찾는 함수
 
 export function provideSortByTime(list: Array<ITodoItemContext>, input: ITodoItemContext): Array<ITodoItemContext> {
+
   let sortedList: Array<ITodoItemContext> = list;
+
+  if(sortedList.length === 0) {
+    sortedList.push(input);
+    return sortedList;
+  }
 
   for(let i=0;i<sortedList.length;i++) {
     var timePart = sortedList[i].timePart; // AM || PM

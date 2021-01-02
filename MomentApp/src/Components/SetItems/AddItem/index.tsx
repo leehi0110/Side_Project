@@ -3,14 +3,13 @@ import Styled from 'styled-components/native';
 
 import {nomalize} from '~/Functions';
 
-const ItemContainer = Styled.TouchableOpacity`
+const Container = Styled.TouchableOpacity`
+
   width: 80%;
   height: 50px;
-  margin-bottom: 20px;
-
   background-color: white;
   border-radius: 20px;
-  
+
   justify-content: center;
   align-items: center;
 
@@ -19,14 +18,15 @@ const ItemContainer = Styled.TouchableOpacity`
 
 const ItemText = Styled.Text`
   font-weight: bold;
+  opacity: 0.3;
 `;
 
-const Item = () => {
+const AddItem = () => {
   return (
-    <ItemContainer>
-      <ItemText style={{fontSize: nomalize(15)}}>{'title'}</ItemText>
-    </ItemContainer>
+    <Container>
+      <ItemText style={{fontSize: nomalize(30)}}>{'+'}</ItemText>
+    </Container>
   );
 };
 
-export default Item;
+export default AddItem;

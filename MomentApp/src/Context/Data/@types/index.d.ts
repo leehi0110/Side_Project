@@ -11,6 +11,11 @@ interface ITodoItemContext {
 
 interface ITodoListContext {
   itemIndex: number,                  // Todo Item의 key값을 위한 고유 index
+  setItemIndex: () => void;
+
+  selectIndex: number,
+  setSelectIndex: (targetIndex: number) => void;
+
   items: Array<ITodoItemContext>,     // item들의 정보를 가지고 있는 배열
 
   selectedDay: number,                  // 선택 되어있는 날짜 정보

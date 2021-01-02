@@ -9,8 +9,13 @@ interface Props {
 
 const TodoListContext = createContext<ITodoListContext>({
   itemIndex: 0,
+  setItemIndex: (): void => {},
+  
+  selectIndex: -1,
+  setSelectIndex: (targetIndex: number): void => {},
+  
   items: [],
-
+  
   selectedDay: 0,
   selectDay: (input: number): void => {},
 
@@ -28,6 +33,7 @@ const TodoListContext = createContext<ITodoListContext>({
 
 const TodoListContextProvider = ({children}: Props) => {
   const [itemIndex, setItemIndex] = useState<number>(0);
+  const [selectIndex, setSelectIndex] = useState<number>(-1);
   const [items, setItems] = useState<Array<ITodoItemContext>>([]);
   const [selectedDay, setSelectedDay] = useState<number>(moment().day());
 
@@ -61,6 +67,14 @@ const TodoListContextProvider = ({children}: Props) => {
     }
   }; // 사용한 인덱스를 불러오는 함수
 
+  const SetItemIndex = () => {
+    setItemIndex(itemIndex);
+  } // 다음 할일 고유 인덱스를 올리는 함수
+
+  const SetSelectIndex = (targetIndex: number) => {
+    setSelectIndex(targetIndex);
+  } // 현재 선택된 할 일의 고유 인덱스
+
   const selectDay = (input: number) => {
     setSelectedDay(input);
 
@@ -86,7 +100,7 @@ const TodoListContextProvider = ({children}: Props) => {
 
     console.log(items);
 
-    const item = func.provideGetItem(targetIndex, items);
+    const item = func.providerGetItem(targetIndex, items);
 
     console.log('Get item success')
     console.log(item);
@@ -97,20 +111,19 @@ const TodoListContextProvider = ({children}: Props) => {
   const addItem = (input: ITodoItemContext) => {
 
     console.log('Add item function start');
-    console.log('Param => ' + input);
 
     input.index = getItemIndex().toString();
     setItemIndex(itemIndex+1);
+    AsyncStorage.setItem('index',JSON.stringify(itemIndex));
     // 현재 사용가능 한 index를 넣어준 뒤 +1
 
     console.log('Index add');
-    console.log('Chage input => ' + input);
 
     const list = func.provideSortByTime(items,input);
     // 새로운 아이템을 리스트에 넣기 전 시간순으로 정렬해 넣는다
 
     setItems(list);
-    // items에 새로운 item을 넣은 뒤 변경
+    // // items에 새로운 item을 넣은 뒤 변경
 
     AsyncStorage.setItem('todoList',JSON.stringify(list));
     // AsyncStorage 업데이트
@@ -156,6 +169,7 @@ const TodoListContextProvider = ({children}: Props) => {
   }
 
   useEffect(() => {
+    // AsyncStorage.clear();
     initList(); // 할일 목록을 AsyncStorage에서 가져오는 함수
     initIndex(); // 사용한 인덱스 번호를 AsyncStorage에서 가져오는 함수
   },[]);
@@ -164,6 +178,9 @@ const TodoListContextProvider = ({children}: Props) => {
     <TodoListContext.Provider
       value={{
         itemIndex,
+        setItemIndex,
+        selectIndex,
+        setSelectIndex,
         items,
         selectedDay,
         selectDay,

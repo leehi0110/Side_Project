@@ -15,13 +15,13 @@ const TimeText = Styled.Text`
 const Time = () => {
   const [nowTime, setNowTime] = useState<string>(getTime());
 
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     setNowTime(getTime());
-  //   },1000);
+  useEffect(() => {
+    setInterval(() => {
+      setNowTime(getTime());
+    },1000);
 
-  //   return () => {}
-  // });
+    return () => {}
+  });
 
   return (
     <Container>
