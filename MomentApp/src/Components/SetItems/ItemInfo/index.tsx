@@ -33,23 +33,23 @@ const ItemInfo = () => {
 
   if(isSelect){
     return (
-      <Container onPress={() => {
-        Select();
-      }}>
-        <ItemText style={{fontSize: nomalize(15)}}>{'강아지 산책'}</ItemText>
-      </Container>
-    );
-  }
-  else {
-    return (
       <>
       <Container onPress={() => {
         Select();
       }}>
         <ItemText style={{fontSize: nomalize(15)}}>{'강아지 산책'}</ItemText>
       </Container>
-      <Info/>
+      <Info isAdd={false}/>
       </>
+    );
+  }
+  else {
+    return (
+      <Container onPress={() => {
+        Select();
+      }}>
+        <ItemText style={{fontSize: nomalize(15)}}>{'강아지 산책'}</ItemText>
+      </Container>
     );
   }
   

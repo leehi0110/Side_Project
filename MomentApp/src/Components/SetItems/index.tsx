@@ -15,7 +15,6 @@ const SetItems = () => {
       <ItemInfo/>
       <ItemInfo/>
       <AddItem/>
-      {/* <AddItem/> */}
     </Container>
   );
 };

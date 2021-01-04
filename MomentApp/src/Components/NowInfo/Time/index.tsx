@@ -20,8 +20,8 @@ const Time = () => {
       setNowTime(getTime());
     },1000);
 
-    return () => {}
-  });
+    return () => {};
+  },[]);
 
   return (
     <Container>

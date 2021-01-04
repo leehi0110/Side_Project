@@ -11,7 +11,6 @@ interface ITodoItemContext {
 
 interface ITodoListContext {
   itemIndex: number,                  // Todo Item의 key값을 위한 고유 index
-  setItemIndex: () => void;
 
   selectIndex: number,
   setSelectIndex: (targetIndex: number) => void;
@@ -32,3 +31,16 @@ interface ITodoListContext {
   undoItem: () => void,                                         // 한 일 => 하지 않은 일로 변경
   doItem: () => void,                                           // 하지 않은 일 => 한 일로 변경
 } // 모든 데이터와 기능을 제공하는 Context
+
+
+interface INewItemContext {
+  newItem: ITodoItemContext,
+
+  initNewItem: () => void,               // 저장 된 할 일 정보를 초기화
+  setDay:(selectDay: number) => void,    // 선택된 날짜를 새로운 할 일 정보에 적용하는 함수
+  setTitle:(title: string) => void,      // 새로운 할일 목록
+  setDoneColor: (color: string) => void, // 새로운 할 일 색상을 적용하는 함수
+  setTimePart: (part: string) => void,   // 새로운 할 일 오전, 오후 구분 함수
+  setHour: (hour: string) => void,       // 새로운 할 일 시간 적용 함수
+  setMin: (min: string) => void,         // 새로운 할 일 분 적용 함수  
+}

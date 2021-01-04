@@ -7,9 +7,66 @@ interface Props {
   children: JSX.Element | Array<JSX.Element>;
 }
 
+const NewItemContext = createContext<INewItemContext>({
+  newItem: func.setDefaultItem(),
+  initNewItem: (): void => {},
+  setDay: (selectDay: number): void => {},
+  setTitle: (title: string): void => {},
+  setDoneColor: (color: string): void => {},
+  setTimePart: (part: string): void => {},
+  setHour: (hour: string): void => {},
+  setMin: (min: string): void => {},
+});
+
+const NewItemContextProvider = ({children}: Props) => {
+  const [newItem, setNewItem] = useState<ITodoItemContext>(func.setDefaultItem());
+  
+  const initNewItem = (): void => {
+    setNewItem(func.setDefaultItem());
+  } // newItem 정보를 초기화
+
+  const setDay = (selectDay: number):void => {
+  }
+
+  const setTitle = (title: string): void => {
+  }
+
+  const setDoneColor = (color: string): void => {
+  }
+
+  const setTimePart = (part: string): void => {
+  }
+
+  const setHour = (hour: string): void => {
+  }
+
+  const setMin = (min: string): void => {
+  }
+
+  useEffect(() => {
+    initNewItem();
+  }),[]
+
+  return (
+    <NewItemContext.Provider
+      value={{
+        newItem,
+        initNewItem,
+        setDay,
+        setTitle,
+        setDoneColor,
+        setTimePart,
+        setHour,
+        setMin,
+      }}>
+      {children}
+    </NewItemContext.Provider>
+  )
+}
+
+
 const TodoListContext = createContext<ITodoListContext>({
   itemIndex: 0,
-  setItemIndex: (): void => {},
   
   selectIndex: -1,
   setSelectIndex: (targetIndex: number): void => {},
@@ -66,10 +123,6 @@ const TodoListContextProvider = ({children}: Props) => {
       console.log(e);
     }
   }; // 사용한 인덱스를 불러오는 함수
-
-  const SetItemIndex = () => {
-    setItemIndex(itemIndex);
-  } // 다음 할일 고유 인덱스를 올리는 함수
 
   const SetSelectIndex = (targetIndex: number) => {
     setSelectIndex(targetIndex);
@@ -178,7 +231,6 @@ const TodoListContextProvider = ({children}: Props) => {
     <TodoListContext.Provider
       value={{
         itemIndex,
-        setItemIndex,
         selectIndex,
         setSelectIndex,
         items,
@@ -198,5 +250,5 @@ const TodoListContextProvider = ({children}: Props) => {
   );
 };
 
-export {TodoListContext, TodoListContextProvider}
+export {TodoListContext, NewItemContext, TodoListContextProvider, NewItemContextProvider}
 
