@@ -18,10 +18,12 @@ const Time = () => {
   useEffect(() => {
     setInterval(() => {
       setNowTime(getTime());
-    },1000);
+    },1000)
 
-    return () => {};
-  },[]);
+    return () => {
+      console.log('time clean');
+    }
+  },[])
 
   return (
     <Container>

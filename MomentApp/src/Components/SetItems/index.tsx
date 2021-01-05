@@ -1,6 +1,8 @@
-import React from 'react';
+import React,{useContext, useEffect} from 'react';
+import { FlatList } from 'react-native';
 import Styled from 'styled-components/native';
 
+import { TodoListContext } from '~/Context/Data';
 import ItemInfo from '~/Components/SetItems/ItemInfo';
 import AddItem from '~/Components/SetItems/AddItem';
 
@@ -10,11 +12,19 @@ const Container = Styled.View`
 `;
 
 const SetItems = () => {
+  const {items} = useContext<ITodoListContext>(TodoListContext);
+
+  useEffect(()=>{
+    console.log(items);
+  },[]);
+
   return (
     <Container>
-      <ItemInfo/>
-      <ItemInfo/>
       <AddItem/>
+      {/* <FlatList
+        data={items}
+        renderItem={ItemInfo}
+        keyExtractor={item => item.index}/> */}
     </Container>
   );
 };

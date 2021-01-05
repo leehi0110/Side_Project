@@ -5,11 +5,10 @@ import { nomalize } from '~/Functions/index';
 import ColorPicker from '~/Components/SetItems/ItemInfo/Info/ColorPicker'
 import DayPicker from '~/Components/SetItems/ItemInfo/Info/DayPicker'
 import TimePicker from '~/Components/SetItems/ItemInfo/Info/TimePicker'
-import { FadeInFromBottomAndroidSpec } from '@react-navigation/stack/lib/typescript/src/TransitionConfigs/TransitionSpecs';
 
 const Container = Styled.View`
   width: 80%;
-  height: 250px;
+  height: 300px;
 
   margin-bottom: 15px;
 
@@ -69,6 +68,7 @@ const Info = ({isAdd}: Props) => {
   else {
     return (
       <Container>
+        <TitleInput placeholder={'할 일을 입력해주세요'}/>
         <ColorPicker/>
         <DayPicker/>
         <TimePicker/>

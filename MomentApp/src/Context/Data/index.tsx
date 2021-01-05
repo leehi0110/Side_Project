@@ -45,7 +45,7 @@ const NewItemContextProvider = ({children}: Props) => {
 
   useEffect(() => {
     initNewItem();
-  }),[]
+  },[]);
 
   return (
     <NewItemContext.Provider
@@ -61,8 +61,8 @@ const NewItemContextProvider = ({children}: Props) => {
       }}>
       {children}
     </NewItemContext.Provider>
-  )
-}
+  );
+};
 
 
 const TodoListContext = createContext<ITodoListContext>({

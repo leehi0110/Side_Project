@@ -24,7 +24,11 @@ const ItemText = Styled.Text`
   font-weight: bold;
 `;
 
-const ItemInfo = () => {
+interface Props {
+  item: ITodoItemContext;
+};
+
+const ItemInfo = ({item}: Props) => {
   const [isSelect, setSelect] = useState<boolean>(false);
 
   const Select = () => {
@@ -34,10 +38,8 @@ const ItemInfo = () => {
   if(isSelect){
     return (
       <>
-      <Container onPress={() => {
-        Select();
-      }}>
-        <ItemText style={{fontSize: nomalize(15)}}>{'강아지 산책'}</ItemText>
+      <Container onPress={Select}>
+        <ItemText style={{fontSize: nomalize(15)}}>{item.title}</ItemText>
       </Container>
       <Info isAdd={false}/>
       </>
@@ -45,10 +47,8 @@ const ItemInfo = () => {
   }
   else {
     return (
-      <Container onPress={() => {
-        Select();
-      }}>
-        <ItemText style={{fontSize: nomalize(15)}}>{'강아지 산책'}</ItemText>
+      <Container onPress={Select}>
+        <ItemText style={{fontSize: nomalize(15)}}>{item.title}</ItemText>
       </Container>
     );
   }
