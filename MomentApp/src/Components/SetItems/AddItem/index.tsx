@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import Styled from 'styled-components/native';
 
 import {nomalize} from '~/Functions';
+import { TodoListContext } from '~/Context/Data';
+import { NewItemContext} from '~/Context/Data';
 
-import Info from '~/Components/SetItems/ItemInfo/Info';
+import Info from '~/Components/SetItems/Info';
 
 const Container = Styled.TouchableOpacity`
   width: 100%;
@@ -32,6 +34,8 @@ const ItemText = Styled.Text`
 
 const AddItem = () => {
   const [flag, setFlag] = useState<boolean>(false);
+  const {setSelectIndex} = useContext<ITodoListContext>(TodoListContext);
+  const {initNewItem} = useContext<INewItemContext>(NewItemContext);
 
   const flagChange = () => {
     setFlag(!flag);
@@ -41,7 +45,7 @@ const AddItem = () => {
     return (
       <Container onPress={() => {
         flagChange();
-        
+        initNewItem();
       }}>
         <ItemText style={{fontSize: nomalize(20)}}>{'Back'}</ItemText>
         <Info isAdd={true}/>
@@ -50,7 +54,11 @@ const AddItem = () => {
   }
   else {
     return (
-      <Container onPress={flagChange}>
+      <Container onPress={() => {
+        flagChange();
+        setSelectIndex(-1);
+        initNewItem();
+      }}>
         <SubContainer>
           <ItemText style={{fontSize: nomalize(30)}}>{'+'}</ItemText>
         </SubContainer>

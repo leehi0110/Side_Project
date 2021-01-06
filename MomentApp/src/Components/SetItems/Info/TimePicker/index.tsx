@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect,useContext} from 'react';
 import Styled from 'styled-components/native';
 import {nomalize} from '~/Functions';
-import { Keyboard } from 'react-native';
+import { NewItemContext } from '~/Context/Data';
+
 
 const Container = Styled.View`
   width: 90%;
@@ -51,8 +52,41 @@ const MinInput = Styled.TextInput`
   text-align: center;
 `;
 
-const TimePicker = () => {
+interface Props {
+  selectPart: string;
+  selectHour: string;
+  selectMin: string;
+}
+
+const TimePicker = ({selectPart, selectHour, selectMin}: Props) => {
   const [part, setPart] = useState<string>('AM');
+  const [hour, changeHour] = useState<string>('');
+  const [min, changeMin] = useState<string>('');
+  const {setTimePart, setHour, setMin} = useContext<INewItemContext>(NewItemContext);
+
+  useEffect(() => {
+    setPart(part);
+  },[selectPart]);
+
+  useEffect(() => {
+    setTimePart(part);
+  },[part]);
+
+  useEffect(()=> {
+    changeHour(selectHour);
+  },[selectHour])
+
+  useEffect(() => {
+    setHour(hour);
+  },[hour])
+
+  useEffect(()=> {
+    changeMin(selectMin);
+  },[selectMin])
+
+  useEffect(() => {
+    setMin(min);
+  },[min]);
 
   return (
     <Container>
@@ -62,8 +96,14 @@ const TimePicker = () => {
         <PartText style={{fontSize: nomalize(15)}}>{part}</PartText>
       </TimePart>
       <TimeContainer>
-        <HourInput placeholder='00' onSubmitEditing={Keyboard.dismiss}/>
-        <MinInput placeholder='00' onSubmitEditing={Keyboard.dismiss}/>
+        <HourInput 
+          placeholder='00'
+          value={hour}
+          onChangeText={text => changeHour(text)}/>
+        <MinInput 
+          placeholder='00'
+          value={min}
+          onChangeText={text => changeMin(text)}/>
       </TimeContainer>
     </Container>
   );

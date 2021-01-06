@@ -26,22 +26,53 @@ const NewItemContextProvider = ({children}: Props) => {
   } // newItem 정보를 초기화
 
   const setDay = (selectDay: number):void => {
-  }
+    let list = newItem;
+
+    if(list.day[selectDay]) list.day[selectDay] = false;
+    else list.day[selectDay] = true;
+    
+    setNewItem(list);
+  } // 할 일의 요일을 지정하는 함수
 
   const setTitle = (title: string): void => {
-  }
+    let list = newItem;
+
+    list.title = title;
+
+    setNewItem(list);
+  } // 할 일의 이름을 지정하는 함수
 
   const setDoneColor = (color: string): void => {
-  }
+    let list = newItem;
+
+    list.doneColor = color;
+
+    setNewItem(list);
+  } // 할 일의 색을 지정하는 함수
 
   const setTimePart = (part: string): void => {
-  }
+    let list = newItem;
+
+    list.timePart = part;
+
+    setNewItem(list);
+  } // 할 일의 오전 / 오후를 구분하는 함수
 
   const setHour = (hour: string): void => {
-  }
+    let list = newItem;
+
+    list.hour = hour;
+
+    setNewItem(list);
+  } // 할 일의 시간을 지정하는 함수
 
   const setMin = (min: string): void => {
-  }
+    let list = newItem;
+
+    list.min = min;
+
+    setNewItem(list);
+  } // 할 일의 분을 지정하는 함수
 
   useEffect(() => {
     initNewItem();
@@ -163,20 +194,24 @@ const TodoListContextProvider = ({children}: Props) => {
 
   const addItem = (input: ITodoItemContext) => {
 
+    let newItem = input;
+
     console.log('Add item function start');
 
-    input.index = getItemIndex().toString();
+    newItem.index = getItemIndex().toString();
+    console.log(newItem);
     setItemIndex(itemIndex+1);
+
     AsyncStorage.setItem('index',JSON.stringify(itemIndex));
     // 현재 사용가능 한 index를 넣어준 뒤 +1
-
     console.log('Index add');
 
-    const list = func.provideSortByTime(items,input);
+    const list = func.provideSortByTime(items,newItem);
     // 새로운 아이템을 리스트에 넣기 전 시간순으로 정렬해 넣는다
 
+    console.log(list);
     setItems(list);
-    // // items에 새로운 item을 넣은 뒤 변경
+    // items에 새로운 item을 넣은 뒤 변경
 
     AsyncStorage.setItem('todoList',JSON.stringify(list));
     // AsyncStorage 업데이트
@@ -222,7 +257,6 @@ const TodoListContextProvider = ({children}: Props) => {
   }
 
   useEffect(() => {
-    // AsyncStorage.clear();
     initList(); // 할일 목록을 AsyncStorage에서 가져오는 함수
     initIndex(); // 사용한 인덱스 번호를 AsyncStorage에서 가져오는 함수
   },[]);

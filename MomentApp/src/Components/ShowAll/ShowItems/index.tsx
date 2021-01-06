@@ -44,8 +44,6 @@ const ShowItems = () => {
         list.push(item);
       }
     }
-    
-    console.log(list.length);
     setTodayItems(list);
   }; // 선택된 날의 할일을 가져오는 함수
 

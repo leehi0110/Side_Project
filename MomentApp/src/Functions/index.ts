@@ -50,7 +50,7 @@ export function setDefaultItem(): ITodoItemContext {
     index: '',        
     day: [false,false,false,false,false,false,false],  
     title: '',
-    undoColor: '',
+    undoColor: 'white',
     doneColor: '',
     timePart: '',
     hour: '',
@@ -90,6 +90,8 @@ export function provideSortByTime(list: Array<ITodoItemContext>, input: ITodoIte
     sortedList.push(input);
     return sortedList;
   }
+
+  console.log(input);
 
   for(let i=0;i<sortedList.length;i++) {
     var timePart = sortedList[i].timePart; // AM || PM
