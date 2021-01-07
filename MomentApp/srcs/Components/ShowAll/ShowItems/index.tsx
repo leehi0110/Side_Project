@@ -2,7 +2,7 @@ import React, {useState, useContext, useEffect} from 'react';
 import { FlatList } from 'react-native';
 import Styled from 'styled-components/native';
 
-import { TodoListContext } from '~/Context/Data';
+import { TodoListContext } from '~/Context/Data/@types';
 import {nomalize} from '~/Functions';
 
 import Empty from '~/Components/ShowAll/ShowItems/Empty';

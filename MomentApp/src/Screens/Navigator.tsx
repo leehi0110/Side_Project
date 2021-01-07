@@ -1,10 +1,10 @@
 import React from 'react';
-import { Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Image } from 'react-native';
 
-import ShowTodo from '~/Screens/ShowTodo';
-import AddTodo from '~/Screens/AddTodo';
+import ShowList from '~/Screens/ShowList';
+import SetList from '~/Screens/SetList';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -22,7 +22,7 @@ const Navigator = () => {
         }}>
         <BottomTab.Screen
           name="ShowTodo"
-          component={ShowTodo}
+          component={ShowList}
           options={{
             tabBarIcon: ({focused}) => (
               focused
@@ -36,16 +36,16 @@ const Navigator = () => {
           }}/>
         <BottomTab.Screen
           name="AddTodo"
-          component={AddTodo}
+          component={SetList}
           options={{
             tabBarIcon: ({focused}) => (
               focused
               ? <Image 
                   style={{width: 35, height: 35, tintColor: '#CD1EE6'}} 
-                  source={require('~/Assets/Images/afterBuild.png')}/>
+                  source={require('~/Assets/Images/afterAdd.png')}/>
               : <Image 
                   style={{width: 20, height: 20, tintColor:'#9F7DB1'}} 
-                  source={require('~/Assets/Images/beforeBuild.png')}/>
+                  source={require('~/Assets/Images/beforeAdd.png')}/>
             ),
           }}/>
       </BottomTab.Navigator>

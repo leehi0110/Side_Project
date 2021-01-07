@@ -2,8 +2,8 @@ import React, {useState, useContext} from 'react';
 import Styled from 'styled-components/native';
 
 import {nomalize} from '~/Functions';
-import { TodoListContext } from '~/Context/Data';
-import { NewItemContext} from '~/Context/Data';
+import { TodoListContext } from '~/Context/Data/@types';
+import { NewItemContext} from '~/Context/Data/@types';
 
 import Info from '~/Components/SetItems/Info';
 

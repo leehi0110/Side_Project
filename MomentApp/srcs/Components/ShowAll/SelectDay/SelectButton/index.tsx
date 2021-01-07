@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import { Dimensions } from 'react-native';
 import Styled from 'styled-components/native';
 
-import { TodoListContext } from '~/Context/Data';
+import { TodoListContext } from '~/Context/Data/@types';
 
 const ButtonContainer = Styled.TouchableOpacity`
   justify-content: center;

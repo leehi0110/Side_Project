@@ -2,7 +2,7 @@ import React, {useState,useContext, useEffect} from 'react';
 import Styled from 'styled-components/native';
 import { Dimensions } from 'react-native';
 import {nomalize} from '~/Functions';
-import { NewItemContext } from '~/Context/Data';
+import { NewItemContext } from '~/Context/Data/@types';
 
 const Container = Styled.View`
   height: 20%;

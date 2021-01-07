@@ -5,7 +5,7 @@ import { nomalize } from '~/Functions/index';
 import ColorPicker from '~/Components/SetItems/Info/ColorPicker'
 import DayPicker from '~/Components/SetItems/Info/DayPicker'
 import TimePicker from '~/Components/SetItems/Info/TimePicker'
-import { NewItemContext, TodoListContext } from '~/Context/Data';
+import { NewItemContext, TodoListContext } from '~/Context/Data/@types';
 
 const Container = Styled.View`
   width: 80%;

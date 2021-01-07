@@ -4,8 +4,8 @@ import Styled from 'styled-components/native';
 
 import {nomalize} from '~/Functions';
 
-import {NewItemContext} from '~/Context/Data';
-import { TodoListContext } from '~/Context/Data';
+import {NewItemContext} from '~/Context/Data/@types';
+import { TodoListContext } from '~/Context/Data/@types';
 
 import Info from '~/Components/SetItems/Info';
 import AddItem from '~/Components/SetItems/AddItem';
@@ -20,7 +20,6 @@ const ListContainer = Styled.TouchableOpacity`
   width: 80%;
   height: 50px;
   margin-top: 20px;
-  margin-bottom: 20px;
 
   background-color: white;
   border-radius: 20px;

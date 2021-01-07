@@ -2,25 +2,25 @@ import React from 'react';
 import Styled from 'styled-components/native';
 import { StatusBar } from 'react-native';
 
-import { TodoListContextProvider } from '~/Context/Data';
-
 import Navigator from '~/Screens/Navigator';
-import MomentComponent from '~/Components/MomentComponent';
+import {TodoListContextProvider, NewItemContextProvider } from '~/Context/Data/@types';
 
-const Container = Styled.SafeAreaView`
+const Container = Styled.View`
   flex: 1;
 `;
 
 const App = () => {
   return (
     <TodoListContextProvider>
+      <NewItemContextProvider>
       <Container>
         <StatusBar barStyle="light-content"/>
-        <MomentComponent/>
         <Navigator/>
       </Container>
+      </NewItemContextProvider>
     </TodoListContextProvider>
   );
 };
 
 export default App;
+
