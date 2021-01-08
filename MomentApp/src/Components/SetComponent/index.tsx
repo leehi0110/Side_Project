@@ -1,19 +1,18 @@
 import React from 'react';
 import Styled from 'styled-components/native';
 
-import ListComponent from '~/Components/ListComponent';
+import AddComponent from '~/Components/SetComponent/AddComponent';
 
 const Container = Styled.View`
   flex: 1;
-  /* background-color: #EBF0F0; */
 `;
 
-const ShowList = () => {
+const SetComponent = () => {
   return (
     <Container>
-      <ListComponent/>
+      <AddComponent></AddComponent>
     </Container>
   );
 };
 
-export default ShowList;
+export default SetComponent;

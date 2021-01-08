@@ -1,21 +1,19 @@
 interface ITodoItem {
   itemIndex: string,
-  itemTitel: string,
+  itemTitle: string,
   itemColor: string,
   itemStatus: boolean,
 }
 
 interface ITodoList {
   index: number,
-  
-  upIndex: () => void,
 
   items: Array<ITodoItem>,
   
-  addItem: () => void,
+  addItem: (item: ITodoItem) => void,
   upDateItem: () => void,
   deleteItem: () => void,
   
-  doneItem: () => void,
-
+  doneItem: (targetIndex: string) => void,
+  getItems: () => void,
 }
