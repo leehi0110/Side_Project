@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Styled from 'styled-components/native';
+import { TodoListContext } from '~/Context/Data';
 
 const Container = Styled.View`
   width : 100%;
@@ -34,10 +35,13 @@ interface Props {
 }
 
 const AddButtonComponent = ({parentCallBack,buttonTitle}: Props) => {
+  const {selectItemIndexSet} = useContext<ITodoList>(TodoListContext);
+
   return (
     <Container>
       <AddButton onPress={() => {
         parentCallBack();
+        selectItemIndexSet(-1);
       }}>
         <AddButtonText>{buttonTitle}</AddButtonText>
       </AddButton>

@@ -2,6 +2,7 @@ import React from 'react';
 import Styled from 'styled-components/native';
 
 import AddComponent from '~/Components/SetComponent/AddComponent';
+import DeleteComponent from '~/Components/SetComponent/DeleteComponent';
 
 const Container = Styled.View`
   flex: 1;
@@ -10,7 +11,8 @@ const Container = Styled.View`
 const SetComponent = () => {
   return (
     <Container>
-      <AddComponent></AddComponent>
+      <AddComponent/>
+      <DeleteComponent/>
     </Container>
   );
 };

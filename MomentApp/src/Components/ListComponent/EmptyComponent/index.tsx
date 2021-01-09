@@ -10,13 +10,15 @@ const Container = Styled.View`
 
 const SubContainer = Styled.View`
   width: 80%;
-  height: 20%;
 
   align-items: center;
   justify-content: space-around;
 `;
 
 const EmptyText = Styled.Text`
+
+  margin-top: 20px;
+  margin-bottom: 20px;
   font-weight: bold;
   opacity: 0.2;
 `;

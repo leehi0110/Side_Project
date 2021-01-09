@@ -1,5 +1,4 @@
 import React, {useState,useContext} from 'react';
-import { resolveHookState } from 'react-use/lib/util/resolveHookState';
 import Styled from 'styled-components/native';
 
 import ColorComponent from '~/Components/SetComponent/AddComponent/AddInfoComponent/ColorComponent';

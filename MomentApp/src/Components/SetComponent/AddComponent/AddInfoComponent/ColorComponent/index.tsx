@@ -19,11 +19,17 @@ const ColorPicker = Styled.TouchableOpacity`
 const pickerSize = Dimensions.get('window').width/14;
 
 interface Props {
-  colorCallBack: (selectColor: string) => void;
+  colorCallBack: (selectColor: string) => void,
+  selectedColor? : string,
 };
 
-const ColorComponent = ({colorCallBack}: Props) => {
+const ColorComponent = ({colorCallBack,selectedColor}: Props) => {
   const [borderColor, setBorderColor] = useState<string>('white');
+
+  useEffect(() => {
+    if(selectedColor != undefined) setBorderColor(selectedColor);
+    else setBorderColor('white');
+  },[])
 
   return (
     <Container>

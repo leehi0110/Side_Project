@@ -7,11 +7,14 @@ interface Props {
 
 const TodoListContext = createContext<ITodoList>({
   index: 0,
+
+  selectItemIndex: -2,
+  selectItemIndexSet: (index: number):void => {},
   
   items: [],
   addItem: (item: ITodoItem):void => {},
-  upDateItem: ():void => {},
-  deleteItem: ():void => {},
+  upDateItem: (item: ITodoItem):void => {},
+  deleteItem: (targetIndex: string):void => {},
 
   doneItem: (targetIndex: string):void => {},
   getItems: ():void => {},
@@ -19,6 +22,7 @@ const TodoListContext = createContext<ITodoList>({
 
 const TodoListContextProvider = ({children}: Props) => {
   const [index, setIndex] = useState<number>(0);
+  const [selectItemIndex, setSelectItemIndex] = useState<number>(-2);
   const [items, setItems] = useState<Array<ITodoItem>>([]);
 
   const initIndex = async () => {
@@ -42,6 +46,10 @@ const TodoListContextProvider = ({children}: Props) => {
     }
   }
 
+  const selectItemIndexSet = (index: number) => {
+    return setSelectItemIndex(index);
+  }
+
   const addItem = (item: ITodoItem) => {
     const oldList = items;
 
@@ -55,12 +63,32 @@ const TodoListContextProvider = ({children}: Props) => {
 
   }
 
-  const upDateItem = () => {
+  const upDateItem = (item: ITodoItem) => {
+    let list = items;
 
+    for(let i=0;i<list.length;i++) {
+      if(list[i].itemIndex === item.itemIndex) {
+        list[i] = item;
+        break;
+      }
+    }
+
+    setItems(list);
+    AsyncStorage.setItem('items',JSON.stringify(list));
   }
 
-  const deleteItem = () => {
+  const deleteItem = (targetIndex: string) => {
+    let list = items;
 
+    for(let i=0;i<list.length;i++) {
+      if(list[i].itemIndex === targetIndex) {
+        list.splice(i,1);
+        break;
+      }
+    }
+
+    setItems(list);
+    AsyncStorage.setItem('items',JSON.stringify(list));
   }
 
   const doneItem = (targetIndex: string) => {
@@ -74,18 +102,6 @@ const TodoListContextProvider = ({children}: Props) => {
     AsyncStorage.setItem('items',JSON.stringify(list));
   }
 
-  const testFunction = () => {
-    console.log('testFunction');
-
-    const tempItem: ITodoItem = {
-      itemIndex: index.toString(),
-      itemTitle: '고양이 산책',
-      itemColor: '#F59A0A',
-      itemStatus: false,
-    };
-    addItem(tempItem);
-  }
-
   const getItems = () => {
     const list = items;
 
@@ -97,8 +113,6 @@ const TodoListContextProvider = ({children}: Props) => {
   useEffect(() => {
     initIndex();
     initList();
-    // AsyncStorage.clear();
-    // testFunction();
   },[])
 
   useEffect(() => {
@@ -112,6 +126,8 @@ const TodoListContextProvider = ({children}: Props) => {
     <TodoListContext.Provider
       value={{
         index,
+        selectItemIndex,
+        selectItemIndexSet,
         items,
         addItem,
         upDateItem,
