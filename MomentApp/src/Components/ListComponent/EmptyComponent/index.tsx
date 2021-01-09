@@ -1,5 +1,6 @@
 import React from 'react';
 import Styled from 'styled-components/native';
+import { useNavigation } from '@react-navigation/native';
 
 const Container = Styled.View`
   flex: 1;
@@ -27,12 +28,14 @@ const AddButton = Styled.TouchableOpacity`
 `;
 
 const EmptyComponent = ({}) => {
+  const navigation = useNavigation();
+
   return (
     <Container>
       <SubContainer>
         <EmptyText style={{fontSize: 30}}>{"할 일을 추가해주세요"}</EmptyText>
         <AddButton onPress={()=> {
-          console.log('navigation push code 작성');
+          navigation.navigate("AddTodo");
         }}>
           <EmptyText style={{fontSize: 20}}>{"Click To Add Todo"}</EmptyText>
         </AddButton>
