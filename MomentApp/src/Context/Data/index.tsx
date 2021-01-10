@@ -59,6 +59,8 @@ const TodoListContextProvider = ({children}: Props) => {
 
       return setTodayIndex(returnDay);
     } else {
+
+      AsyncStorage.setItem('today',JSON.stringify(moment().day()));
       return setTodayIndex(moment().day());
     }
   }
