@@ -12,6 +12,7 @@ const Container = Styled.SafeAreaView`
 `;
 
 const App = () => {
+
   return (
     <TodoListContextProvider>
       <Container>

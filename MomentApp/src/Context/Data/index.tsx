@@ -1,5 +1,6 @@
-import React, {createContext, useState, useContext, useEffect} from 'react';
+import React, {createContext, useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
+import moment from 'moment';
 
 interface Props {
   children: JSX.Element | Array<JSX.Element>;
@@ -7,6 +8,7 @@ interface Props {
 
 const TodoListContext = createContext<ITodoList>({
   index: 0,
+  todayIndex: 0,
 
   selectItemIndex: -2,
   selectItemIndexSet: (index: number):void => {},
@@ -24,6 +26,7 @@ const TodoListContextProvider = ({children}: Props) => {
   const [index, setIndex] = useState<number>(0);
   const [selectItemIndex, setSelectItemIndex] = useState<number>(-2);
   const [items, setItems] = useState<Array<ITodoItem>>([]);
+  const [todayIndex, setTodayIndex] = useState<number>(0);
 
   const initIndex = async () => {
     const getIndex = await AsyncStorage.getItem('index');
@@ -44,6 +47,40 @@ const TodoListContextProvider = ({children}: Props) => {
     else {
       setItems([]);
     }
+  }
+  
+  const initDay = async () => {
+    const getDay = await AsyncStorage.getItem('today');
+
+    if(getDay !== null) {
+      const parseGetDay = JSON.parse(getDay);
+
+      const returnDay = checkDay(parseGetDay);
+
+      return setTodayIndex(returnDay);
+    } else {
+      return setTodayIndex(moment().day());
+    }
+  }
+
+  const checkDay = (savedDay: number): number => {
+    const nowDay = moment().day();
+
+    if(savedDay !== nowDay) {
+      undoAllFunc();
+      return(nowDay);
+    } else return savedDay;
+  }
+
+  const undoAllFunc = () => {
+    const list = items;
+
+    list.forEach((item) => {
+      item.itemStatus = false;
+    });
+
+    setItems(list);
+    AsyncStorage.setItem('items',JSON.stringify(list));
   }
 
   const selectItemIndexSet = (index: number) => {
@@ -95,7 +132,10 @@ const TodoListContextProvider = ({children}: Props) => {
     const list = items;
 
     list.forEach((item) => {
-      if(item.itemIndex === targetIndex) item.itemStatus = !item.itemStatus;
+      if(item.itemIndex === targetIndex) {
+        item.itemStatus ? item.itemContinuity -= 1 : item.itemContinuity += 1;
+        item.itemStatus = !item.itemStatus;
+      }
     });
 
     setItems(list);
@@ -113,6 +153,7 @@ const TodoListContextProvider = ({children}: Props) => {
   useEffect(() => {
     initIndex();
     initList();
+    initDay();
   },[])
 
   useEffect(() => {
@@ -126,6 +167,7 @@ const TodoListContextProvider = ({children}: Props) => {
     <TodoListContext.Provider
       value={{
         index,
+        todayIndex,
         selectItemIndex,
         selectItemIndexSet,
         items,

@@ -104,6 +104,7 @@ const AddInfoComponent = ({parentCallBack}: Props) => {
               itemTitle: value,
               itemColor: color,
               itemStatus: false,
+              itemContinuity: 0,
             };
 
             addItem(newItem);

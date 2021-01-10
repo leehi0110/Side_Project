@@ -132,7 +132,8 @@ const UpdateInfoComponent = ({itemInfo, parentCallBack}: Props) => {
               itemIndex: itemInfo.itemIndex,
               itemTitle: value,
               itemColor: color,
-              itemStatus: false,
+              itemStatus: itemInfo.itemStatus,
+              itemContinuity: itemInfo.itemContinuity,
             }),
             parentCallBack();
           }

@@ -3,10 +3,12 @@ interface ITodoItem {
   itemTitle: string,
   itemColor: string,
   itemStatus: boolean,
+  itemContinuity: number,
 }
 
 interface ITodoList {
   index: number,
+  todayIndex: number,
 
   selectItemIndex: number,
   selectItemIndexSet: (index: number) => void,

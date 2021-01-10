@@ -22,11 +22,13 @@ const ItemButton = Styled.TouchableOpacity`
   width: 80%;
   height: 80%;
 
+  flex-direction: row;
+
   border-radius: 40px;
   border: 3px solid #C8DBE6;
 
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
 `;
 
 const ItemTitle = Styled.Text`
@@ -58,6 +60,9 @@ const ListComponent = () => {
                 style={{ backgroundColor: item.itemStatus ? item.itemColor : "white" }}>
                 <ItemTitle style={{color: item.itemStatus ? "white" : "black"}}>
                   {item.itemTitle}
+                </ItemTitle>
+                <ItemTitle style={{color: item.itemStatus ? "white" : "black"}}>
+                  {`+ ${item.itemContinuity}`}
                 </ItemTitle>
               </ItemButton>
             </ItemContainer>
