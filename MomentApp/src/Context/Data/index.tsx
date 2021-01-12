@@ -78,6 +78,10 @@ const TodoListContextProvider = ({ children }: Props) => {
     const list = items;
 
     list.forEach((item) => {
+      if (!item.itemStatus) {
+        item.itemContinuity = 0;
+      }
+
       item.itemStatus = false;
     });
 
